@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component
 @Component
 class DBInit(val carRepository: CarRepository) : CommandLineRunner {
     override fun run(vararg args: String?) {
+        //Hogy mindig üresen induljon az adatbázis, ezért kitörlöm az adatokat a feltöltés előtt
+        //Ez hosszútávú perzisztencia esetetén nem használandó
         carRepository.deleteAll()
 
         val model3 = Car(brand = "Tesla", model = "Model 3", year = 2017, startingPrice = 35000)
