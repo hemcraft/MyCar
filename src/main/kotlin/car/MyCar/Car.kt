@@ -12,6 +12,6 @@ class Car(val brand: String, val model: String, var year: Int, var startingPrice
     var sold: Int = 0
 
     fun increaseNumberOfSoldCars(){
-        sold = sold + 1
+        sold++
     }
 }

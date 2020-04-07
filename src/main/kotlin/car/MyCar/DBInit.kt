@@ -6,17 +6,18 @@ import org.springframework.stereotype.Component
 @Component
 class DBInit(val carRepository: CarRepository) : CommandLineRunner {
     override fun run(vararg args: String?) {
-        this.carRepository.deleteAll()
+        carRepository.deleteAll()
 
         val model3 = Car("Tesla", "Model 3", 2017, 35000)
-        model3.increaseNumberOfSoldCars()
-        model3.increaseNumberOfSoldCars()
-        model3.increaseNumberOfSoldCars()
-        model3.increaseNumberOfSoldCars()
-        model3.increaseNumberOfSoldCars()
+        repeat(5) {
+            model3.increaseNumberOfSoldCars()
+        }
+
         val modelS = Car("Tesla", "Model S", 2012, 80000)
-        modelS.increaseNumberOfSoldCars()
-        modelS.increaseNumberOfSoldCars()
+        repeat(2) {
+            modelS.increaseNumberOfSoldCars()
+        }
+
         val cybertruck = Car("Tesla", "Cybertruck", 2021, 50000)
         val modelY = Car("Tesla", "Model Y", 2020, 40000)
 
@@ -26,11 +27,9 @@ class DBInit(val carRepository: CarRepository) : CommandLineRunner {
         cars.add(cybertruck)
         cars.add(modelY)
 
-        for (car: Car? in cars){
-            if (car != null) {
-                println((car.model) + " " + car.year)
-                this.carRepository.save(car)
-            }
+        cars.forEach { car ->
+            println("${car.model} ${car.year}")
+            carRepository.save(car)
         }
 
         println("Database started")

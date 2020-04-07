@@ -8,65 +8,66 @@ class CarController(val carRepository: CarRepository) {
 
     @GetMapping("/all")
     fun getAllCars(): MutableIterable<Car>{
-        return this.carRepository.findAll()
+        return carRepository.findAll()
     }
 
     @GetMapping("/model/{model}")
     fun getCarByModel(@PathVariable(value = "model") model: String): Car {
-        val car = this.carRepository.findByModel(model)
+        val car = carRepository.findByModel(model)
         return car
     }
 
     @GetMapping("/brand/{brand}")
     fun getCarsByBrand(@PathVariable(value = "brand") brand: String): List<Car> {
-        val cars = this.carRepository.findByBrand(brand)
+        val cars = carRepository.findByBrand(brand)
         return cars
     }
 
     @GetMapping("/year/{year}")
     fun getCarsByYear(@PathVariable(value = "year") year: Int): List<Car> {
-        val cars = this.carRepository.findByYear(year)
+        val cars = carRepository.findByYear(year)
         return cars
     }
 
     @GetMapping("/price/model/{model}")
     fun getPriceByModel(@PathVariable(value = "model") model: String): Int {
-        val price = this.carRepository.findByModel(model).price
+        val price = carRepository.findByModel(model).price
         return price
     }
 
     @GetMapping("/sold/model/{model}")
     fun getNumberOfSoldCarsByModel(@PathVariable(value = "model") model: String): Int {
-        val sold = this.carRepository.findByModel(model).sold
+        val sold = carRepository.findByModel(model).sold
         return sold
     }
 
     @GetMapping("/price/brand/{brand}")
     fun getAveragePriceByBrand(@PathVariable(value = "brand") brand: String): Double {
-        val averagePrice = this.carRepository.findAverageByBrand(brand)
+        val averagePrice = carRepository.findAverageByBrand(brand)
         return averagePrice
     }
 
     @GetMapping("/sold/brand/{brand}")
     fun getAverageNumberOfSoldCarsByBrand(@PathVariable(value = "brand") brand: String): Double {
-        val average = this.carRepository.findAverageNumberOfSoldCarsByBrand(brand)
+        val average = carRepository.findAverageNumberOfSoldCarsByBrand(brand)
         return average
     }
 
     @PostMapping("/new")
     fun createNewCar(@RequestBody createCarRequest: CreateCarRequest){
+        println("NEW CAR DETAILS!!: " + createCarRequest.brand + " " + createCarRequest.model)
         val car = Car(createCarRequest.brand, createCarRequest.model, createCarRequest.year, createCarRequest.price)
-        this.carRepository.save(car)
+        carRepository.save(car)
     }
 
     @DeleteMapping("/{model}")
     fun deleteCar(@PathVariable(value = "model") model: String) {
-        this.carRepository.delete(this.carRepository.findByModel(model))
+        carRepository.delete(carRepository.findByModel(model))
     }
 
     @PutMapping("/{model}")
     fun updateCar(@PathVariable(value = "model") model: String, @RequestBody updateCarRequest: UpdateCarRequest) {
-        var car = this.carRepository.findByModel(model)
+        var car = carRepository.findByModel(model)
 
         if (updateCarRequest.year != 0) {
             car.year = updateCarRequest.year
@@ -80,15 +81,15 @@ class CarController(val carRepository: CarRepository) {
             car.sold = updateCarRequest.sold
         }
 
-        this.carRepository.save(car)
+        carRepository.save(car)
     }
 
     @PutMapping("/sold/{model}")
     fun updateOneSoldCar(@PathVariable(value = "model") model: String) {
-        var car = this.carRepository.findByModel(model)
+        var car = carRepository.findByModel(model)
         car.increaseNumberOfSoldCars()
 
-        this.carRepository.save(car)
+        carRepository.save(car)
     }
 
 }
