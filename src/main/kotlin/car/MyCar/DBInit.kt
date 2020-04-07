@@ -8,18 +8,18 @@ class DBInit(val carRepository: CarRepository) : CommandLineRunner {
     override fun run(vararg args: String?) {
         carRepository.deleteAll()
 
-        val model3 = Car("Tesla", "Model 3", 2017, 35000)
+        val model3 = Car(brand = "Tesla", model = "Model 3", year = 2017, startingPrice = 35000)
         repeat(5) {
             model3.increaseNumberOfSoldCars()
         }
 
-        val modelS = Car("Tesla", "Model S", 2012, 80000)
+        val modelS = Car(brand = "Tesla", model = "Model S", year = 2012, startingPrice = 80000)
         repeat(2) {
             modelS.increaseNumberOfSoldCars()
         }
 
-        val cybertruck = Car("Tesla", "Cybertruck", 2021, 50000)
-        val modelY = Car("Tesla", "Model Y", 2020, 40000)
+        val cybertruck = Car(brand = "Tesla", model = "Cybertruck", year = 2021, startingPrice = 50000)
+        val modelY = Car(brand = "Tesla", model = "Model Y", year = 2020, startingPrice = 40000)
 
         val cars = mutableListOf<Car>()
         cars.add(model3)

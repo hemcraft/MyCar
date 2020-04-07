@@ -55,7 +55,11 @@ class CarController(val carRepository: CarRepository) {
 
     @PostMapping("/new")
     fun createNewCar(@RequestBody createCarRequest: CreateCarRequest){
-        val car = Car(createCarRequest.brand, createCarRequest.model, createCarRequest.year, createCarRequest.price)
+        val car = Car(
+                brand = createCarRequest.brand,
+                model = createCarRequest.model,
+                year = createCarRequest.year,
+                startingPrice = createCarRequest.price)
         carRepository.save(car)
     }
 
