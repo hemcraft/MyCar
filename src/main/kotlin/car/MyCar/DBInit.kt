@@ -21,11 +21,7 @@ class DBInit(val carRepository: CarRepository) : CommandLineRunner {
         val cybertruck = Car(brand = "Tesla", model = "Cybertruck", year = 2021, startingPrice = 50000)
         val modelY = Car(brand = "Tesla", model = "Model Y", year = 2020, startingPrice = 40000)
 
-        val cars = mutableListOf<Car>()
-        cars.add(model3)
-        cars.add(modelS)
-        cars.add(cybertruck)
-        cars.add(modelY)
+        val cars = listOf(model3, modelS, cybertruck, modelY)
 
         cars.forEach { car ->
             println("${car.model} ${car.year}")
