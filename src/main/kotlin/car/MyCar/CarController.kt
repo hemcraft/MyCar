@@ -38,18 +38,18 @@ class CarController(val carRepository: CarRepository) {
 
     @GetMapping("/price/brand/{brand}")
     fun getAveragePriceByBrand(@PathVariable(value = "brand") brand: String): Double {
-        val cars = getAllCars().filter { it.brand == brand }
-        val priceArray = cars.map { it.price.toDouble() }
-
-        return priceArray.average()
+        return getAllCars()
+                .filter { it.brand == brand }
+                .map { it.price.toDouble() }
+                .average()
     }
 
     @GetMapping("/sold/brand/{brand}")
     fun getAverageNumberOfSoldCarsByBrand(@PathVariable(value = "brand") brand: String): Double {
-        val cars = getAllCars().filter { it.brand == brand }
-        val soldArray = cars.map { it.sold.toDouble() }
-
-        return soldArray.average()
+        return getAllCars()
+                .filter { it.brand == brand }
+                .map { it.sold.toDouble() }
+                .average()
     }
 
     @PostMapping("/new")
